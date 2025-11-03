@@ -30,7 +30,7 @@ yarn-error.log*
 
 # IDEs
 .idea/
-.vscode/
+# .vscode/ - we include recommended settings, but you can customize locally
 *.swp
 *.swo
 *~
