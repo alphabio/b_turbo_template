@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     ".": "./shared-styles.css",
+    "./base.css": "./base.css",
     "./postcss": "./postcss.config.js"
   },
   "scripts": {

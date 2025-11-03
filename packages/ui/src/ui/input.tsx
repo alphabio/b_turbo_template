@@ -1,7 +1,7 @@
 // b_path:: packages/ui/src/ui/input.tsx
 import * as React from "react"
 
-import { cn } from "@ui/lib/utils";
+import { cn } from "@b/ui/lib/utils";
 
 function Input({ className, type, ...props }: React.ComponentProps<"input">) {
   return (

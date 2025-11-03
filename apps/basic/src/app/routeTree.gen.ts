@@ -1,4 +1,3 @@
-// b_path:: apps/basic/src/app/routeTree.gen.ts
 /* eslint-disable */
 
 // @ts-nocheck
@@ -9,104 +8,142 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as publicIndexRouteImport } from './routes/(public)/index'
+import { Route as authLoginRouteImport } from './routes/(auth)/login'
+import { Route as protectedDashboardRouteRouteImport } from './routes/(protected)/dashboard/route'
+import { Route as protectedAdminRouteRouteImport } from './routes/(protected)/admin/route'
+import { Route as protectedDashboardIndexRouteImport } from './routes/(protected)/dashboard/index'
+import { Route as protectedAdminIndexRouteImport } from './routes/(protected)/admin/index'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as publicIndexImport } from './routes/(public)/index'
-import { Route as authLoginImport } from './routes/(auth)/login'
-import { Route as protectedDashboardRouteImport } from './routes/(protected)/dashboard/route'
-import { Route as protectedAdminRouteImport } from './routes/(protected)/admin/route'
-import { Route as protectedDashboardIndexImport } from './routes/(protected)/dashboard/index'
-import { Route as protectedAdminIndexImport } from './routes/(protected)/admin/index'
-
-// Create/Update Routes
-
-const publicIndexRoute = publicIndexImport.update({
+const publicIndexRoute = publicIndexRouteImport.update({
   id: '/(public)/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const authLoginRoute = authLoginImport.update({
+const authLoginRoute = authLoginRouteImport.update({
   id: '/(auth)/login',
   path: '/login',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const protectedDashboardRouteRoute = protectedDashboardRouteImport.update({
+const protectedDashboardRouteRoute = protectedDashboardRouteRouteImport.update({
   id: '/(protected)/dashboard',
   path: '/dashboard',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const protectedAdminRouteRoute = protectedAdminRouteImport.update({
+const protectedAdminRouteRoute = protectedAdminRouteRouteImport.update({
   id: '/(protected)/admin',
   path: '/admin',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const protectedDashboardIndexRoute = protectedDashboardIndexImport.update({
+const protectedDashboardIndexRoute = protectedDashboardIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => protectedDashboardRouteRoute,
 } as any)
-
-const protectedAdminIndexRoute = protectedAdminIndexImport.update({
+const protectedAdminIndexRoute = protectedAdminIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => protectedAdminRouteRoute,
 } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/admin': typeof protectedAdminRouteRouteWithChildren
+  '/dashboard': typeof protectedDashboardRouteRouteWithChildren
+  '/login': typeof authLoginRoute
+  '/': typeof publicIndexRoute
+  '/admin/': typeof protectedAdminIndexRoute
+  '/dashboard/': typeof protectedDashboardIndexRoute
+}
+export interface FileRoutesByTo {
+  '/login': typeof authLoginRoute
+  '/': typeof publicIndexRoute
+  '/admin': typeof protectedAdminIndexRoute
+  '/dashboard': typeof protectedDashboardIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/(protected)/admin': typeof protectedAdminRouteRouteWithChildren
+  '/(protected)/dashboard': typeof protectedDashboardRouteRouteWithChildren
+  '/(auth)/login': typeof authLoginRoute
+  '/(public)/': typeof publicIndexRoute
+  '/(protected)/admin/': typeof protectedAdminIndexRoute
+  '/(protected)/dashboard/': typeof protectedDashboardIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths:
+    | '/admin'
+    | '/dashboard'
+    | '/login'
+    | '/'
+    | '/admin/'
+    | '/dashboard/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/login' | '/' | '/admin' | '/dashboard'
+  id:
+    | '__root__'
+    | '/(protected)/admin'
+    | '/(protected)/dashboard'
+    | '/(auth)/login'
+    | '/(public)/'
+    | '/(protected)/admin/'
+    | '/(protected)/dashboard/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  protectedAdminRouteRoute: typeof protectedAdminRouteRouteWithChildren
+  protectedDashboardRouteRoute: typeof protectedDashboardRouteRouteWithChildren
+  authLoginRoute: typeof authLoginRoute
+  publicIndexRoute: typeof publicIndexRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(protected)/admin': {
-      id: '/(protected)/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof protectedAdminRouteImport
-      parentRoute: typeof rootRoute
-    }
-    '/(protected)/dashboard': {
-      id: '/(protected)/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof protectedDashboardRouteImport
-      parentRoute: typeof rootRoute
+    '/(public)/': {
+      id: '/(public)/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof publicIndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(auth)/login': {
       id: '/(auth)/login'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof authLoginImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof authLoginRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(public)/': {
-      id: '/(public)/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof publicIndexImport
-      parentRoute: typeof rootRoute
+    '/(protected)/dashboard': {
+      id: '/(protected)/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof protectedDashboardRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/(protected)/admin/': {
-      id: '/(protected)/admin/'
-      path: '/'
-      fullPath: '/admin/'
-      preLoaderRoute: typeof protectedAdminIndexImport
-      parentRoute: typeof protectedAdminRouteImport
+    '/(protected)/admin': {
+      id: '/(protected)/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof protectedAdminRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/(protected)/dashboard/': {
       id: '/(protected)/dashboard/'
       path: '/'
       fullPath: '/dashboard/'
-      preLoaderRoute: typeof protectedDashboardIndexImport
-      parentRoute: typeof protectedDashboardRouteImport
+      preLoaderRoute: typeof protectedDashboardIndexRouteImport
+      parentRoute: typeof protectedDashboardRouteRoute
+    }
+    '/(protected)/admin/': {
+      id: '/(protected)/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof protectedAdminIndexRouteImport
+      parentRoute: typeof protectedAdminRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface protectedAdminRouteRouteChildren {
   protectedAdminIndexRoute: typeof protectedAdminIndexRoute
@@ -133,110 +170,12 @@ const protectedDashboardRouteRouteWithChildren =
     protectedDashboardRouteRouteChildren,
   )
 
-export interface FileRoutesByFullPath {
-  '/admin': typeof protectedAdminRouteRouteWithChildren
-  '/dashboard': typeof protectedDashboardRouteRouteWithChildren
-  '/login': typeof authLoginRoute
-  '/': typeof publicIndexRoute
-  '/admin/': typeof protectedAdminIndexRoute
-  '/dashboard/': typeof protectedDashboardIndexRoute
-}
-
-export interface FileRoutesByTo {
-  '/login': typeof authLoginRoute
-  '/': typeof publicIndexRoute
-  '/admin': typeof protectedAdminIndexRoute
-  '/dashboard': typeof protectedDashboardIndexRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/(protected)/admin': typeof protectedAdminRouteRouteWithChildren
-  '/(protected)/dashboard': typeof protectedDashboardRouteRouteWithChildren
-  '/(auth)/login': typeof authLoginRoute
-  '/(public)/': typeof publicIndexRoute
-  '/(protected)/admin/': typeof protectedAdminIndexRoute
-  '/(protected)/dashboard/': typeof protectedDashboardIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/admin'
-    | '/dashboard'
-    | '/login'
-    | '/'
-    | '/admin/'
-    | '/dashboard/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/login' | '/' | '/admin' | '/dashboard'
-  id:
-    | '__root__'
-    | '/(protected)/admin'
-    | '/(protected)/dashboard'
-    | '/(auth)/login'
-    | '/(public)/'
-    | '/(protected)/admin/'
-    | '/(protected)/dashboard/'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  protectedAdminRouteRoute: typeof protectedAdminRouteRouteWithChildren
-  protectedDashboardRouteRoute: typeof protectedDashboardRouteRouteWithChildren
-  authLoginRoute: typeof authLoginRoute
-  publicIndexRoute: typeof publicIndexRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   protectedAdminRouteRoute: protectedAdminRouteRouteWithChildren,
   protectedDashboardRouteRoute: protectedDashboardRouteRouteWithChildren,
   authLoginRoute: authLoginRoute,
   publicIndexRoute: publicIndexRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/(protected)/admin",
-        "/(protected)/dashboard",
-        "/(auth)/login",
-        "/(public)/"
-      ]
-    },
-    "/(protected)/admin": {
-      "filePath": "(protected)/admin/route.tsx",
-      "children": [
-        "/(protected)/admin/"
-      ]
-    },
-    "/(protected)/dashboard": {
-      "filePath": "(protected)/dashboard/route.tsx",
-      "children": [
-        "/(protected)/dashboard/"
-      ]
-    },
-    "/(auth)/login": {
-      "filePath": "(auth)/login.tsx"
-    },
-    "/(public)/": {
-      "filePath": "(public)/index.tsx"
-    },
-    "/(protected)/admin/": {
-      "filePath": "(protected)/admin/index.tsx",
-      "parent": "/(protected)/admin"
-    },
-    "/(protected)/dashboard/": {
-      "filePath": "(protected)/dashboard/index.tsx",
-      "parent": "/(protected)/dashboard"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

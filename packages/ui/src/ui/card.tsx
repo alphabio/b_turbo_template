@@ -1,7 +1,7 @@
 // b_path:: packages/ui/src/ui/card.tsx
 import type * as React from "react";
 
-import { cn } from "@ui/lib/utils";
+import { cn } from "@b/ui/lib/utils";
 
 function Card({ className, ...props }: React.ComponentProps<"div">) {
   return (

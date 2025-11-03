@@ -1,5 +1,5 @@
 {
-  "name": "@b_fluid/monorepo",
+  "name": "@b_templates/b_turbo_template",
   "version": "1.0.0",
   "description": "Alphab Monorepo - Multi-project workspace with shared packages",
   "main": "index.js",
@@ -49,7 +49,7 @@
     "@tanstack/react-router-devtools": "^1.134.9",
     "@tanstack/router-plugin": "^1.134.9",
     "@types/howler": "^2.2.12",
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.0",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@vitejs/plugin-react": "^5.1.0",
@@ -75,7 +75,5 @@
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^1.6.1",
     "web-vitals": "^5.1.0"
-  },
-  "dependencies": {
   }
 }

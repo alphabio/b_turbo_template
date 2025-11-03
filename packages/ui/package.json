@@ -6,7 +6,8 @@
   "main": "./src/index.tsx",
   "types": "./src/index.tsx",
   "exports": {
-    ".": "./src/index.tsx"
+    ".": "./src/index.tsx",
+    "./lib/utils": "./src/lib/utils.ts"
   },
   "scripts": {
     "clean": "rimraf dist node_modules pnpm-lock.yaml",

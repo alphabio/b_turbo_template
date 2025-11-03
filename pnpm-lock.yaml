@@ -120,7 +120,7 @@ importers:
         specifier: ^2.2.12
         version: 2.2.12
       '@types/node':
-        specifier: ^24.9.2
+        specifier: ^24.10.0
         version: 24.10.0
       '@types/react':
         specifier: 'catalog:'

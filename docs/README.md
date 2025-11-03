@@ -1,12 +1,16 @@
 # 📚 Documentation Guide
 
-**Purpose:** Entry point for agents and developers working on this project.
+**Purpose:** Entry point for agents and developers working on this turborepo monorepo template.
 
 ---
 
 ## 🚀 Quick Start for New Agents
 
-1. **Read this file** (you're doing it!)
+1. **Read this file** to understand the monorepo structure
+2. **Check `SESSION_HANDOVER.md`** for current project state
+3. **Review `WORKFLOW_QUICKREF.md`** for session workflow
+4. **Review `CODE_QUALITY.md`** for standards and conventions
+5. **Begin work** - confirm action plan with user
 
 ---
 
@@ -15,39 +19,96 @@
 ```
 docs/
 ├── README.md                          ← You are here (static guide)
-├── SESSION_HANDOVER.md                ← CURRENT session state (updated each session)
+├── WORKFLOW_QUICKREF.md               ← Session workflow cheat sheet
+├── SESSION_HANDOVER.md                ← CURRENT session state
+├── SESSION_HANDOVER_TEMPLATE.md       ← Template for new sessions
 ├── CODE_QUALITY.md                    ← Code standards and quality gates
 │
-├── sessions/                          ← Archived session handovers
-│   ├── SESSION_HANDOVER.001.md
-│   ├── SESSION_HANDOVER.002.md
+├── sessions/                          ← Session archives + artifacts
+│   ├── 001/                          ← Session 001 directory
+│   │   ├── SESSION_HANDOVER.md       ← The handover
+│   │   ├── git-ref.txt               ← Commit SHA from session
+│   │   └── *.md                      ← Session artifacts (analyses, bugs, etc)
+│   ├── 002/
+│   │   ├── SESSION_HANDOVER.md
+│   │   ├── git-ref.txt
+│   │   └── *.md
 │   └── ...
 │
-├── architecture/                      ← System design & decisions
-│   └── README.md
+├── architecture/                      ← Long-lived technical docs
+│   ├── README.md
+│   └── decisions/                     ← ADRs promoted from sessions
+│       └── 001-example-decision.md
 │
-├── features/                          ← Feature specifications
-│   └── *.md
-│
-├── research/                          ← Research & experiments
-│   ├── haton-extraction/              ← Displacement effect research
-│   └── experiments/
-│
-└── archive/                           ← Deprecated/old documentation
+└── archive/                           ← Deprecated/superseded docs
 ```
 
 ---
 
-## 🏗️ Project Code Structure
+## 🏗️ Monorepo Structure
 
 ```
-<!-- TODO: PLEASE POPULATE THIS -->
-docs/                   ← Documentation (this directory)
+b_turbo_template/
+├── apps/                              ← Applications
+│   └── basic/                         ← Example app (React + TanStack Router + Convex)
+│
+├── packages/                          ← Shared packages
+│   ├── b_components/                  ← Shared React components
+│   ├── b_server/                      ← Server-side utilities
+│   ├── b_store/                       ← State management (Zustand)
+│   ├── ui/                            ← UI component library (Radix UI)
+│   ├── tailwind-config/               ← Shared Tailwind CSS config
+│   └── typescript-config/             ← Shared TypeScript configs
+│
+├── docs/                              ← Documentation (this directory)
+├── scripts/                           ← Build and utility scripts
+├── .github/                           ← GitHub workflows and config
+│
+├── turbo.json                         ← Turborepo configuration
+├── pnpm-workspace.yaml                ← PNPM workspace config
+├── package.json                       ← Root package.json
+├── justfile                           ← Just command runner recipes
+└── biome.json                         ← Biome linter/formatter config
 ```
+
+---
+
+## 🛠️ Technology Stack
+
+### Core
+
+- **Build System:** Turborepo - high-performance monorepo build system
+- **Package Manager:** PNPM - fast, disk space efficient package manager
+- **Language:** TypeScript - type-safe JavaScript
+- **Bundler:** Vite - next generation frontend tooling
+
+### Frontend (Apps)
+
+- **Framework:** React 19
+- **Routing:** TanStack Router - type-safe routing
+- **Styling:** Tailwind CSS v4 - utility-first CSS
+- **UI Components:** Radix UI - accessible component primitives
+- **State Management:** Zustand - lightweight state management
+- **Backend:** Convex - serverless backend with real-time sync
+- **Auth:** Convex Auth - authentication for Convex apps
+
+### Developer Experience
+
+- **Linter/Formatter:** Biome - fast, unified toolchain
+- **Task Runner:** Just - command runner
+- **Git Hooks:** Lefthook - fast git hooks manager
+- **Commits:** Commitizen + Conventional Commits
+- **Versioning:** Changesets - version and publish management
 
 ---
 
 ## 📝 Session Handover Protocol
+
+### Philosophy
+
+**Keep it lean:** Each session handover documents ONLY what happened in that session. Previous context is in archived sessions - don't duplicate it.
+
+**Think incremental snapshots, not cumulative history.**
 
 ### For Incoming Agent (Starting Session)
 
@@ -70,10 +131,14 @@ mv docs/SESSION_HANDOVER.md docs/sessions/SESSION_HANDOVER.$(printf "%03d" $NEXT
 4. **Create new `SESSION_HANDOVER.md`:**
 
 ```bash
+# Copy template
+cp docs/SESSION_HANDOVER_TEMPLATE.md docs/SESSION_HANDOVER.md
+
+# Or create from scratch
 touch docs/SESSION_HANDOVER.md
 ```
 
-Use this file as a place to add running commentary
+**Use the template as a guide - see `docs/SESSION_HANDOVER_TEMPLATE.md`**
 
 5. **Read `CODE_QUALITY.md`** (important)
 
@@ -84,12 +149,57 @@ Use this file as a place to add running commentary
 
 ### For Outgoing Agent (Ending Session)
 
-1. **Update handover with:**
-   - What was accomplished
-   - Current status
-   - Next steps
-   - Blockers/decisions needed
-   - Links to relevant files
+**Your job: Write a good handover for the next agent**
+
+1. **Update `docs/SESSION_HANDOVER.md`** throughout your session
+
+Include:
+
+- What was accomplished
+- Current state (what's working, what's not)
+- Session artifacts created (list them)
+- Next steps and blockers
+- Key decisions made
+
+2. **Create working docs as needed:**
+
+```bash
+# Create analysis docs, bug reports, etc. in docs root
+docs/BUG_ADVECTION.md
+docs/PERFORMANCE_ANALYSIS.md
+docs/CRITICAL_FINDINGS.md
+```
+
+Don't worry about organizing - next agent will archive them.
+
+3. **Promote lasting docs if needed:**
+
+If you create an ADR or something with lasting value:
+
+```bash
+# Move to architecture immediately
+mv docs/ADR-001-state-management.md docs/architecture/decisions/
+```
+
+Or note in handover: "Promote `ADR-001-state-management.md` to architecture"
+
+4. **Reference previous sessions if helpful:**
+
+```markdown
+## Related Context
+
+See `docs/sessions/001/BUG_ADVECTION.md` for original bug analysis.
+```
+
+**The next agent will archive everything on session start.**
+
+---
+
+**Key principle:**
+
+- Current handover: `docs/SESSION_HANDOVER.md` (you edit this)
+- Archives: `docs/sessions/NNN/` (next agent creates on start)
+- Work naturally, archive on transition
 
 **Key principle:** `SESSION_HANDOVER.md` is always current. Old ones go to `sessions/` and become immutable.
 
@@ -104,31 +214,23 @@ During development, ad-hoc documents are often created in the project root or va
 Periodically (or when instructed), organize loose documentation:
 
 ```bash
-# Move loose docs to appropriate locations:
-
 # Architecture decisions → docs/architecture/
-mv ROOT_DOC_ABOUT_ARCHITECTURE.md docs/architecture/
+mv ROOT_DOC_ABOUT_ARCHITECTURE.md docs/architecture/decisions/
 
-# Feature specs → docs/features/
-mv FEATURE_PROPOSAL.md docs/features/feature-name.md
-
-# Research notes → docs/research/
-mv EXPERIMENT_NOTES.md docs/research/experiment-name.md
+# Planning docs that are complete → docs/archive/
+mv PLANNING_DOC.md docs/archive/
 
 # Outdated/deprecated → docs/archive/
 mv OLD_APPROACH.md docs/archive/
-
-# Planning docs that are complete → docs/archive/
-mv REORGANIZATION_PLAN.md docs/archive/
 ```
 
 ### Guidelines
 
-- **Architecture docs** → `docs/architecture/`
-- **Feature specs** → `docs/features/` (use kebab-case)
-- **Research/experiments** → `docs/research/`
+- **Architecture docs** → `docs/architecture/` (use subdirectories: decisions/, patterns/, diagrams/)
 - **Completed plans** → `docs/archive/`
 - **Old/deprecated** → `docs/archive/`
+- **Feature specs** → Create `docs/features/` if needed for your project
+- **Research notes** → Create `docs/research/` if needed for your project
 
 **Keep root clean:** Only essential files (README.md, package.json, etc.) should live in project root.
 
@@ -136,25 +238,17 @@ mv REORGANIZATION_PLAN.md docs/archive/
 
 ## 🎯 Key Directories Explained
 
-### `architecture/`
-
-System design, architecture decisions, technical choices. Documents the "why" and "how" of the codebase structure.
-
-### `features/`
-
-Feature specifications and requirements. Each feature gets its own markdown file describing functionality, requirements, and implementation notes.
-
-### `research/`
-
-Research findings, experiments, proof-of-concepts. Includes the complete haton displacement effect extraction.
-
 ### `sessions/`
 
-Archived session handovers. Immutable historical record of project progress and decisions.
+Archived session handovers. Immutable historical record of project progress and decisions. Each session gets numbered (001, 002, 003...) and archived at the start of the next session.
+
+### `architecture/`
+
+System design, architecture decisions (ADRs), technical choices, and patterns. Documents the "why" and "how" of the codebase structure. Create subdirectories for decisions, patterns, and diagrams as needed.
 
 ### `archive/`
 
-Deprecated or superseded documentation. Kept for historical reference but no longer active.
+Deprecated or superseded documentation. Kept for historical reference but no longer active. Move completed planning docs and old approaches here.
 
 ---
 
@@ -163,6 +257,7 @@ Deprecated or superseded documentation. Kept for historical reference but no lon
 **Current Session:**
 
 - `SESSION_HANDOVER.md` - Start here for current state
+- `WORKFLOW_QUICKREF.md` - Session workflow cheat sheet
 
 **Standards:**
 
@@ -170,17 +265,7 @@ Deprecated or superseded documentation. Kept for historical reference but no lon
 
 **Architecture:**
 
-- `architecture/README.md` - System architecture
-
-**Features:**
-
-- `features/displacement-effect.md` - Displacement effect spec
-
-**Research:**
-
-- `research/haton-extraction/INDEX.md` - Research navigation
-- `research/haton-extraction/QUICK_REFERENCE.md` - Implementation guide
-- `research/haton-extraction/EXTRACTION_COMPLETE.md` - Full technical docs
+- `architecture/README.md` - System architecture and decisions
 
 ---
 
@@ -188,27 +273,92 @@ Deprecated or superseded documentation. Kept for historical reference but no lon
 
 ### Documentation
 
-- **`SESSION_HANDOVER.md` is always current** - Updated each session
-- **Old handovers go to `sessions/`** - Immutable archive
+- **`SESSION_HANDOVER.md` is always current** - Lives in `docs/` root, archived on session start
+- **Old handovers go to `sessions/NNN/`** - Complete session folders with artifacts
 - **This README stays static** - Minimal maintenance required
 - **Link, don't duplicate** - Reference other docs instead of copying
 
+### Temporary Files
+
+- **Prefix with `b_`** - All temp files in `/tmp/` must start with `b_` (e.g., `/tmp/b_analysis.md`, `/tmp/b_script.sh`)
+- **Why:** Easy to identify agent-generated files vs system files
+- **Applies to:** Analysis docs, scratch files, ad-hoc scripts, working notes
+- **User may review later** - Temp files often contain valuable context
+
+Examples:
+
+```bash
+# ✅ Good
+/tmp/b_session_flow_analysis.md
+/tmp/b_build_script.sh
+/tmp/b_debug_output.txt
+
+# ❌ Bad
+/tmp/analysis.md
+/tmp/script.sh
+/tmp/output.txt
+```
+
 ### File Organization
 
-- **Active docs in root categories** (architecture/, features/)
-- **Research in research/** - Experiments and analysis
+- **Active docs in architecture/** - ADRs, patterns, technical decisions
+- **Historical records in sessions/** - Project progress over time
 - **Deprecated in archive/** - Historical reference only
-- **Sessions in sessions/** - Project history
 
 ### Naming
 
-- Session handovers: `SESSION_HANDOVER.nnn.md` (zero-padded)
-- Feature docs: lowercase with hyphens `feature-name.md`
-- Research: descriptive names, organized by topic
+- Session handovers: `SESSION_HANDOVER.nnn.md` (zero-padded: 001, 002, 003)
+- Architecture decisions: `NNN-kebab-case-title.md` in `architecture/decisions/`
+- General docs: lowercase with hyphens `document-name.md`
 
 ---
 
 ## 🚀 Common Commands
+
+### Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development (all apps)
+just dev
+# or: pnpm dev
+
+# Start specific app
+pnpm --filter @b/basic dev
+
+# Build all packages and apps
+just build
+# or: pnpm build
+
+# Type check
+just typecheck
+
+# Run tests
+just test
+
+# Run tests with coverage
+just cover
+```
+
+### Quality Control
+
+```bash
+# Format code
+just format
+
+# Lint code
+just lint
+
+# Run all checks (format + lint + typecheck)
+just check
+
+# Clean all build artifacts and node_modules
+just clean
+```
+
+### Documentation
 
 ```bash
 # Read current session handover
@@ -217,45 +367,72 @@ cat docs/SESSION_HANDOVER.md
 # View session history
 ls -lt docs/sessions/
 
-# Check research
-ls docs/research/haton-extraction/
-
 # View docs structure
 tree -L 2 docs/
 
-# View project structure
+# View monorepo structure
 tree -L 2 apps/ packages/
+```
+
+### Package Management
+
+```bash
+# Add dependency to specific package
+pnpm --filter @b/basic add react-query
+
+# Add dev dependency to root
+pnpm add -Dw vitest
+
+# Update all dependencies
+pnpm update -r
+
+# Check for outdated packages
+pnpm outdated -r
 ```
 
 ---
 
-## 🎓 Context: What This Project Is
+## 🎯 Monorepo Concepts
 
-A world-class web application featuring:
+### Workspaces
 
-- Three.js/WebGL rendering
-- Fluid simulation displacement effects
-- Custom interactive elements
-- Professional, scalable architecture
+- **Apps (`apps/*`)**: Deployable applications, each can be independently developed and deployed
+- **Packages (`packages/*`)**: Shared code used by apps and other packages
+- **Workspace protocol**: `workspace:*` in package.json links to local packages
 
-Built with: React, Three.js, TypeScript, Vite
+### Turborepo Features
+
+- **Task pipelines**: Automatically run tasks in correct order based on dependencies
+- **Caching**: Intelligent caching of build outputs for faster rebuilds
+- **Parallel execution**: Run tasks across packages in parallel when possible
+- **Remote caching**: Optional shared cache for teams (not enabled by default)
+
+### Catalog (PNPM Feature)
+
+- Centralized dependency version management in `pnpm-workspace.yaml`
+- Use `catalog:` in package.json to reference catalog versions
+- Ensures consistent versions across all packages
+
+---
+
+## 🎓 Context: What This Template Is
+
+A production-ready turborepo monorepo template featuring:
+
+- **Modern React stack** - React 19, TypeScript, Vite, TanStack Router
+- **Shared packages** - Reusable components, configs, and utilities
+- **Type safety** - End-to-end TypeScript with strict configs
+- **Code quality** - Biome linting/formatting, pre-commit hooks
+- **Professional DX** - Fast builds, hot reload, comprehensive tooling
+- **Scalable architecture** - Add apps and packages as needed
+
+**Perfect for:**
+
+- Multi-app projects sharing common code
+- Component libraries with example apps
+- Micro-frontends architectures
+- Teams needing consistent tooling across projects
 
 ---
 
 **Ready to work? → Read `SESSION_HANDOVER.md` now! 🚀**
-
----
-
-## 📖 Quick Reference
-
-**For Displacement Effect Implementation:**
-→ `DISPLACEMENT_SPEC_DEFINITIVE.md` - Single source of truth (VALIDATED)
-
-**For Implementation Plan:**
-→ `SESSION_PLAN_PHASE1-3.md` - Step-by-step validated plan
-
-**For Current Status:**
-→ `SESSION_HANDOVER.md` - Where we are now
-
-**For Code Standards:**
-→ `CODE_QUALITY.md` - Quality requirements

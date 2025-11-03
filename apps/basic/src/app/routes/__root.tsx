@@ -1,4 +1,4 @@
-// b_path:: apps/basic/src/app/routes/_root.tsx
+// b_path:: apps/basic/src/app/routes/__root.tsx
 import { ThemeProvider } from "@b/b_components";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
