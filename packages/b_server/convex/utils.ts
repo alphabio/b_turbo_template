@@ -12,15 +12,14 @@ export function missingEnvVariableUrl(envVarName: string, whereToGet: string) {
 export function deploymentName() {
   const url = process.env.CONVEX_URL;
   if (!url) return undefined;
-  const regex = new RegExp("https://(.+).convex.cloud");
+  const regex = /https:\/\/(.+).convex.cloud/;
   return regex.exec(url)?.[1];
 }
 
 export const site = {
   name: "KopaKopa",
   slogan: "Empower Your Finances!",
-  description:
-    "KopaKopa is a Platform for Financial Planning, Tracking, and Literacy",
+  description: "KopaKopa is a Platform for Financial Planning, Tracking, and Literacy",
   logo: "/logo.png",
   phone: undefined,
   email: "loans@acelords.com",

@@ -35,6 +35,40 @@ check:
 clean:
     pnpm clean
 
+# ------------- Dependencies -------------
+
+# Check for outdated dependencies
+deps-check:
+    @echo "📦 Checking package.json dependencies..."
+    pnpm outdated -r || true
+    @echo ""
+    @echo "📦 Checking catalog dependencies..."
+    npx -y pnpm-catalog-updates check || true
+
+# Update package.json dependencies (root devDependencies)
+deps-update:
+    pnpm update -r --latest
+    pnpm install
+    @echo "✅ package.json dependencies updated."
+
+# Update catalog dependencies (pnpm-workspace.yaml)
+deps-catalog:
+    npx -y pnpm-catalog-updates --update
+    pnpm install
+    @echo "✅ Catalog dependencies updated."
+
+# Update everything (package.json + catalog)
+deps-upgrade-all: deps-update deps-catalog
+    @echo "✅ All dependencies updated."
+
+# Full update workflow with validation
+deps-upgrade: deps-upgrade-all check build test
+    @echo "🎉 All dependencies updated and tests passed!"
+
+# Add a new dependency to catalog
+deps-add package:
+    ./scripts/add-catalog-dep.sh {{package}}
+
 # ------------- llm -------------
 
 # Add path comment header to files

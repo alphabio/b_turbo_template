@@ -8,9 +8,8 @@
 
 1. **Read this file** to understand the monorepo structure
 2. **Check `SESSION_HANDOVER.md`** for current project state
-3. **Review `WORKFLOW_QUICKREF.md`** for session workflow
-4. **Review `CODE_QUALITY.md`** for standards and conventions
-5. **Begin work** - confirm action plan with user
+3. **Review `CODE_QUALITY.md`** for standards and conventions
+4. **Begin work** - confirm action plan with user
 
 ---
 
@@ -19,9 +18,7 @@
 ```
 docs/
 ├── README.md                          ← You are here (static guide)
-├── WORKFLOW_QUICKREF.md               ← Session workflow cheat sheet
 ├── SESSION_HANDOVER.md                ← CURRENT session state
-├── SESSION_HANDOVER_TEMPLATE.md       ← Template for new sessions
 ├── CODE_QUALITY.md                    ← Code standards and quality gates
 │
 ├── sessions/                          ← Session archives + artifacts
@@ -117,35 +114,81 @@ b_turbo_template/
    - What's the current focus?
    - What's blocking?
    - What needs to happen next?
-3. **Archive current handover:**
+3. **Archive previous session:**
 
 ```bash
-# Find next number
-NEXT=$(ls -1 docs/sessions/SESSION_HANDOVER.*.md | wc -l | xargs)
+# Find next session number
+NEXT=$(find docs/sessions -maxdepth 1 -type d -name "[0-9]*" | wc -l | xargs)
 NEXT=$((NEXT + 1))
+SESSION_DIR="docs/sessions/$(printf "%03d" $NEXT)"
 
-# Move current to sessions
-mv docs/SESSION_HANDOVER.md docs/sessions/SESSION_HANDOVER.$(printf "%03d" $NEXT).md
+# Create session archive directory
+mkdir -p "$SESSION_DIR"
+
+# Archive the handover and git ref
+mv docs/SESSION_HANDOVER.md "$SESSION_DIR/"
+git rev-parse HEAD > "$SESSION_DIR/git-ref.txt"
+
+# Archive any session artifacts (exclude permanent docs)
+find docs/ -maxdepth 1 -name "*.md" \
+  -not -name "README.md" \
+  -not -name "CODE_QUALITY.md" \
+  -exec mv {} "$SESSION_DIR/" \;
 ```
 
 4. **Create new `SESSION_HANDOVER.md`:**
 
 ```bash
-# Copy template
-cp docs/SESSION_HANDOVER_TEMPLATE.md docs/SESSION_HANDOVER.md
+# Copy structure from previous session
+cat > docs/SESSION_HANDOVER.md << 'EOF'
+# Session NNN: [Title]
 
-# Or create from scratch
-touch docs/SESSION_HANDOVER.md
+**Date:** YYYY-MM-DD
+**Git Ref:** [Will be captured on next session start]
+**Focus:** [What this session is about]
+
+---
+
+## ✅ What Was Accomplished
+
+- [List achievements]
+
+---
+
+## 📊 Current State
+
+**What's working:**
+- [List working features]
+
+**What's not:**
+- [List issues/blockers]
+
+---
+
+## 🎯 Next Steps
+
+1. [Priority 1]
+2. [Priority 2]
+
+---
+
+## 📝 Session Artifacts Created
+
+- [List docs created]
+
+---
+
+## 💡 Key Decisions
+
+- [Document important decisions]
+EOF
 ```
-
-**Use the template as a guide - see `docs/SESSION_HANDOVER_TEMPLATE.md`**
 
 5. **Read `CODE_QUALITY.md`** (important)
 
 6. **Begin work**
-
-- Confirm action plan for this session / resolve any questions with user
-- Ask if the user has anything additional to add
+   - Confirm action plan for this session
+   - Ask if the user has anything additional to add
 
 ### For Outgoing Agent (Ending Session)
 
@@ -257,7 +300,6 @@ Deprecated or superseded documentation. Kept for historical reference but no lon
 **Current Session:**
 
 - `SESSION_HANDOVER.md` - Start here for current state
-- `WORKFLOW_QUICKREF.md` - Session workflow cheat sheet
 
 **Standards:**
 
@@ -280,7 +322,8 @@ Deprecated or superseded documentation. Kept for historical reference but no lon
 
 ### Temporary Files
 
-- **Prefix with `b_`** - All temp files in `/tmp/` must start with `b_` (e.g., `/tmp/b_analysis.md`, `/tmp/b_script.sh`)
+- **System temp only** - Use system `/tmp/` for temporary files (NOT repo directories)
+- **Prefix with `b_`** - All temp files must start with `b_` (e.g., `/tmp/b_analysis.md`, `/tmp/b_script.sh`)
 - **Why:** Easy to identify agent-generated files vs system files
 - **Applies to:** Analysis docs, scratch files, ad-hoc scripts, working notes
 - **User may review later** - Temp files often contain valuable context
@@ -307,7 +350,8 @@ Examples:
 
 ### Naming
 
-- Session handovers: `SESSION_HANDOVER.nnn.md` (zero-padded: 001, 002, 003)
+- Session directories: `001/`, `002/`, `003/` (zero-padded) in `sessions/`
+- Session handovers: `SESSION_HANDOVER.md` (always the same name, archived to session dirs)
 - Architecture decisions: `NNN-kebab-case-title.md` in `architecture/decisions/`
 - General docs: lowercase with hyphens `document-name.md`
 
@@ -377,17 +421,26 @@ tree -L 2 apps/ packages/
 ### Package Management
 
 ```bash
-# Add dependency to specific package
-pnpm --filter @b/basic add react-query
+# Check for outdated packages (both package.json and catalog)
+just deps-check
+
+# Update all dependencies (package.json + catalog) with validation
+just deps-upgrade
+
+# Add runtime dependency to catalog (shared across apps/packages)
+just deps-add lodash              # Latest version
+just deps-add lodash ^4.17.21    # Specific version
+# Then add to package.json: "lodash": "catalog:"
 
 # Add dev dependency to root
 pnpm add -Dw vitest
 
-# Update all dependencies
-pnpm update -r
+# Add dependency to specific package
+pnpm --filter @b/basic add react-query
 
-# Check for outdated packages
-pnpm outdated -r
+# Advanced: Update separately
+just deps-update     # Update package.json only
+just deps-catalog    # Update catalog only
 ```
 
 ---

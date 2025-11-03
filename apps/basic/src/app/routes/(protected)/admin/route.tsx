@@ -30,11 +30,7 @@ function RouteComponent() {
             <h1>Admin</h1>
           </div>
           <div className="w-full h-full">
-            {currentUser?.role === "admin" ? (
-              <Outlet />
-            ) : (
-              <Navigate to="/dashboard" replace />
-            )}
+            {currentUser?.role === "admin" ? <Outlet /> : <Navigate to="/dashboard" replace />}
           </div>
         </div>
       </Authenticated>

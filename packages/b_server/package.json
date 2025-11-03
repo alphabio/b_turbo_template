@@ -15,5 +15,8 @@
     "convex": "catalog:",
     "jose": "catalog:",
     "resend": "catalog:"
-  }
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {}
 }

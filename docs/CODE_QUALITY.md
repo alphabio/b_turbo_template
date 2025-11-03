@@ -127,9 +127,9 @@ just build   # Production build
 
 ```typescript
 // ❌ Bad - forbidden patterns
-const data: any = fetchData();           // No 'any'
+const data: any = fetchData(); // No 'any'
 // @ts-ignore                            // No @ts-ignore
-const result = data as SomeType;        // No 'as' without comment
+const result = data as SomeType; // No 'as' without comment
 
 // ✅ Good - type-safe patterns
 const data: unknown = fetchData();
@@ -159,14 +159,16 @@ function processData(data: unknown) {
 
 ```typescript
 // ❌ Bad
-import { unused } from "lib";     // Remove unused imports
+import { unused } from "lib"; // Remove unused imports
 
-function handler(event, _ctx) {   // ✅ Prefix unused params with _
+function handler(event, _ctx) {
+  // ✅ Prefix unused params with _
   return event.data;
 }
 ```
 
 **Remove dead code immediately:**
+
 - Unused imports
 - Unused variables
 - Commented-out code (use git history instead)
@@ -210,12 +212,14 @@ just lint      # Shows remaining issues
 ## Testing Standards
 
 **Test what matters:**
+
 - Critical user flows
 - Complex business logic
 - Edge cases and error handling
 - Public APIs of shared packages
 
 **Don't test:**
+
 - Implementation details
 - Third-party libraries
 - Trivial getters/setters
@@ -294,6 +298,7 @@ pnpm commit    # Interactive commit helper (Commitizen)
 ```
 
 **Pre-commit hooks (Lefthook):**
+
 - Auto-format staged files
 - Run lint checks
 - Type check changed files
@@ -359,6 +364,7 @@ just dev
 We're building production-grade software. Quality is non-negotiable.
 
 **Small issues compound exponentially:**
+
 - One `any` leads to more `any`
 - One skipped test leads to untested code
 - One lint ignore leads to more ignores
@@ -405,12 +411,14 @@ These rules have **zero exceptions:**
 ```
 
 **Why this matters:**
+
 - User can quickly identify agent-generated files
 - Easy to review and capture valuable context
 - Distinguishes from system/other temp files
 - Simplifies cleanup
 
 **Applies to:**
+
 - Analysis documents
 - Ad-hoc scripts
 - Debug outputs

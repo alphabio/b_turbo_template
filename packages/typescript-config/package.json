@@ -8,5 +8,9 @@
   },
   "publishConfig": {
     "access": "public"
-  }
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {}
 }

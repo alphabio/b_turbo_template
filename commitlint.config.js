@@ -9,15 +9,15 @@ module.exports = {
       [
         // Apps
         "basic",
-        
+
         // Packages
         "b_components",
-        "b_server", 
+        "b_server",
         "b_store",
         "ui",
         "tailwind-config",
         "typescript-config",
-        
+
         // Common
         "docs",
         "deps",
@@ -28,14 +28,14 @@ module.exports = {
         "dx",
       ],
     ],
-    
+
     // Scope recommended but not required
     // (some commits like "docs: update README" don't need scope)
     "scope-empty": [1, "never"],
-    
+
     // Allow any case for subject
     "subject-case": [0],
-    
+
     // Subject min length
     "subject-min-length": [2, "always", 10],
   },

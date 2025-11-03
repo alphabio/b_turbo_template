@@ -1,12 +1,5 @@
 // b_path:: apps/basic/src/app/routes/(auth)/login.tsx
-import {
-  Button,
-  Input,
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSeparator,
-  InputOTPSlot,
-} from "@b/ui";
+import { Button, Input, InputOTP, InputOTPGroup, InputOTPSeparator, InputOTPSlot } from "@b/ui";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
@@ -28,18 +21,13 @@ function Page() {
   const [showEmailSignIn, setShowEmailSignIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleOAuthSignIn = async ({
-    provider,
-  }: {
-    provider: "google" | "facebook";
-  }) => {
+  const handleOAuthSignIn = async ({ provider }: { provider: "google" | "facebook" }) => {
     setIsLoading(true);
     try {
       await signIn(provider, {
         redirectTo: "/dashboard",
       });
-    } catch (error) {
-      console.error(`${provider} sign-in error:`, error);
+    } catch (_error) {
     } finally {
       setIsLoading(false);
     }
@@ -57,13 +45,8 @@ function Page() {
       <Unauthenticated>
         {/* Left side - Image */}
         <div className="hidden lg:block lg:w-1/2 relative">
-          <div className="absolute inset-0 bg-black/20" />{" "}
-          {/* Overlay for better text contrast */}
-          <img
-            src="/images/login-bg.jpg"
-            alt="Nature background"
-            className="w-full h-full object-cover"
-          />
+          <div className="absolute inset-0 bg-black/20" /> {/* Overlay for better text contrast */}
+          <img src="/images/login-bg.jpg" alt="Nature background" className="w-full h-full object-cover" />
           <div className="absolute inset-0 flex items-center justify-center p-8">
             <div className="text-white text-center">
               <h2 className="text-4xl font-bold mb-4">Welcome Back</h2>
@@ -79,11 +62,7 @@ function Page() {
               <h1 className="text-2xl font-bold">Sign In</h1>
             </div>
             {showEmailSignIn ? (
-              <EmailSignIn
-                onBack={() => setShowEmailSignIn(false)}
-                isLoading={isLoading}
-                setIsLoading={setIsLoading}
-              />
+              <EmailSignIn onBack={() => setShowEmailSignIn(false)} isLoading={isLoading} setIsLoading={setIsLoading} />
             ) : (
               <div className="space-y-4">
                 <Button
@@ -92,11 +71,7 @@ function Page() {
                   disabled={isLoading}
                   className="w-full bg-[#EA4335] hover:bg-[#D33A2C] text-white"
                 >
-                  {isLoading ? (
-                    <Loader2 className="animate-spin" />
-                  ) : (
-                    "Sign in with Google"
-                  )}
+                  {isLoading ? <Loader2 className="animate-spin" /> : "Sign in with Google"}
                 </Button>
 
                 <Button
@@ -122,9 +97,7 @@ function Page() {
 
 function EmailSignIn({ onBack, isLoading, setIsLoading }: EmailSignInProps) {
   const { signIn } = useAuthActions();
-  const [step, setStep] = useState<"email" | { type: "code"; email: string }>(
-    "email",
-  );
+  const [step, setStep] = useState<"email" | { type: "code"; email: string }>("email");
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -144,12 +117,7 @@ function EmailSignIn({ onBack, isLoading, setIsLoading }: EmailSignInProps) {
       await signIn("resend-otp", formData);
       setStep({ type: "code", email });
     } catch (error) {
-      console.error("Email submission error:", error);
-      setError(
-        error instanceof Error
-          ? error.message
-          : "Failed to send verification code",
-      );
+      setError(error instanceof Error ? error.message : "Failed to send verification code");
     } finally {
       setIsLoading(false);
     }
@@ -171,10 +139,7 @@ function EmailSignIn({ onBack, isLoading, setIsLoading }: EmailSignInProps) {
       formData.append("redirectTo", "/dashboard");
       await signIn("resend-otp", formData);
     } catch (error) {
-      console.error("Code submission error:", error);
-      setError(
-        error instanceof Error ? error.message : "Failed to verify code",
-      );
+      setError(error instanceof Error ? error.message : "Failed to verify code");
     } finally {
       setIsLoading(false);
     }
@@ -214,12 +179,7 @@ function EmailSignIn({ onBack, isLoading, setIsLoading }: EmailSignInProps) {
       {error && <div className="text-red-500 text-sm">{error}</div>}
 
       <form onSubmit={handleCodeSubmit} className="space-y-4">
-        <InputOTP
-          value={code}
-          onChange={setCode}
-          maxLength={6}
-          className="w-full justify-center"
-        >
+        <InputOTP value={code} onChange={setCode} maxLength={6} className="w-full justify-center">
           <InputOTPGroup>
             <InputOTPSlot index={0} />
             <InputOTPSlot index={1} />

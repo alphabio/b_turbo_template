@@ -74,6 +74,7 @@ mv docs/ANALYSIS_*.md docs/sessions/$NEXT/ 2>/dev/null || true
 ## What Are Session Artifacts?
 
 Working documents created DURING a session:
+
 - Bug analyses (`BUG_*.md`)
 - Performance investigations (`PERFORMANCE_*.md`)
 - Critical findings (`CRITICAL_*.md`)
@@ -126,4 +127,4 @@ git checkout -b explore-session-003 $(cat docs/sessions/003/git-ref.txt)
 ---
 
 **Current session handover:** `../SESSION_HANDOVER.md` (one level up)  
-**Template:** `../SESSION_HANDOVER_TEMPLATE.md` (use this as starting point)
+**Structure guide:** Copy structure from previous session handover

@@ -24,13 +24,7 @@ function RouteComponent() {
         <Navigate to="/login" replace />
       </Unauthenticated>
 
-      <Authenticated>
-        {currentUser?.role === "admin" ? (
-          <Navigate to="/admin" replace />
-        ) : (
-          <Outlet />
-        )}
-      </Authenticated>
+      <Authenticated>{currentUser?.role === "admin" ? <Navigate to="/admin" replace /> : <Outlet />}</Authenticated>
     </div>
   );
 }

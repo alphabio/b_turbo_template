@@ -39,7 +39,7 @@
 **For next agent:**
 
 1. Review this handover
-2. Follow `WORKFLOW_QUICKREF.md` to start session 002
+2. Follow session workflow in `README.md` to start session 002
 3. Archive this session (001) before beginning work
 4. Begin actual project work based on user requirements
 
@@ -56,12 +56,15 @@
 
 **In this session:**
 
-- `docs/README.md` - Main documentation guide
+- `docs/README.md` - Main documentation guide (updated)
 - `docs/CODE_QUALITY.md` - Quality standards
-- `docs/WORKFLOW_QUICKREF.md` - Session workflow guide
-- `docs/SESSION_HANDOVER_TEMPLATE.md` - Template for future sessions
 - `docs/architecture/README.md` - Architecture documentation guide
 - `docs/sessions/README.md` - Session archive guide
+
+**Removed:**
+
+- `docs/WORKFLOW_QUICKREF.md` - Redundant (merged into README)
+- `docs/SESSION_HANDOVER_TEMPLATE.md` - Redundant (agents copy structure from current handover)
 
 **No artifacts to archive** - all are permanent documentation.
 
@@ -69,10 +72,10 @@
 
 ## 💡 Key Decisions
 
-- **Session workflow:** Work in root, archive on transition (hybrid approach)
-- **Temp files:** Prefix all `/tmp/` files with `b_` for easy identification
+- **Session workflow:** Archive on session start, work naturally in docs root
+- **Temp files:** System `/tmp/` only, prefix all with `b_` for easy identification
 - **Session artifacts:** Archive with session folders, promote ADRs to architecture
-- **Keep lean:** <200 lines per handover, extract details to artifact docs
+- **Keep lean:** Simplified docs structure, removed redundant files
 
 ---
 
@@ -84,4 +87,4 @@ The monorepo is clean and ready for development. All tooling is configured and w
 
 ---
 
-**Next agent: See `docs/WORKFLOW_QUICKREF.md` for step-by-step session start instructions.**
+**Next agent: See `docs/README.md` for session start instructions and workflow.**

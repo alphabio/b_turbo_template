@@ -13,5 +13,7 @@
   "dependencies": {
     "tailwindcss": "catalog:"
   },
-  "devDependencies": {}
+  "devDependencies": {},
+  "peerDependencies": {},
+  "optionalDependencies": {}
 }

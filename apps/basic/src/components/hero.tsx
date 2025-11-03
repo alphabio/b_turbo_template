@@ -3,13 +3,7 @@ import { Button } from "@b/ui";
 import { site } from "@/lib";
 import { Link } from "@tanstack/react-router";
 import { Authenticated, AuthLoading, Unauthenticated } from "convex/react";
-import {
-  ChevronRight,
-  CreditCard,
-  Loader2,
-  TrendingUp,
-  Users,
-} from "lucide-react";
+import { ChevronRight, CreditCard, Loader2, TrendingUp, Users } from "lucide-react";
 
 const features = [
   {
@@ -44,12 +38,8 @@ export function Hero() {
                 {site.name}
               </span>
             </div>
-            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl mb-6">
-              {site.slogan}
-            </h1>
-            <p className="text-xl leading-4 text-muted-foreground mb-8">
-              {site.description}
-            </p>
+            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl mb-6">{site.slogan}</h1>
+            <p className="text-xl leading-4 text-muted-foreground mb-8">{site.description}</p>
             <p className="text-base leading-4 text-muted-foreground mb-8">
               Get cash flow under control with our easy-to-use platform.
             </p>
@@ -86,12 +76,8 @@ export function Hero() {
                     <feature.icon className="h-5 w-5 text-primary" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.description}
-                    </p>
+                    <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                    <p className="text-sm text-muted-foreground">{feature.description}</p>
                   </div>
                 </div>
               ))}
@@ -116,19 +102,15 @@ export function Hero() {
                 <div className="space-y-4">
                   <div className="rounded-xl bg-card p-4 ring-1 ring-gray-900/5 dark:ring-white/5">
                     <div className="flex justify-between items-center mb-4">
-                      <span className="text-sm text-muted-foreground">
-                        Balance
-                      </span>
-                      <span className="text-sm font-medium">KES</span>
+                      <span className="text-sm text-muted-foreground">Balance</span>
+                      <span className="text-sm font-medium">BAHT</span>
                     </div>
-                    <div className="text-2xl font-semibold">KES 4,358.44</div>
+                    <div className="text-2xl font-semibold">BAHT 4,358.44</div>
                   </div>
 
                   <div className="rounded-xl bg-card p-4 ring-1 ring-gray-900/5 dark:ring-white/5">
-                    <div className="text-sm text-muted-foreground mb-2">
-                      Mpesa Number
-                    </div>
-                    <div className="font-mono text-lg">+254701234567</div>
+                    <div className="text-sm text-muted-foreground mb-2">Bangkok Number</div>
+                    <div className="font-mono text-lg">+6098312267</div>
                   </div>
                 </div>
               </div>
@@ -141,7 +123,11 @@ export function Hero() {
               </div>
               <div className="absolute -right-8 bottom-8 animate-float-delayed">
                 <div className="rounded-lg bg-card p-2 shadow-lg ring-1 ring-gray-900/10 dark:ring-white/10">
-                  <img src="https://i.awake-careful-ant.com/optimized/320/alphabio_modern_abstract_textures_patterns_world_class_art_pain_9792c506-2222-4be0-83b3-9e071462233b.png.1.jpg" className="w-auto h-6" />
+                  <img
+                    src="https://i.awake-careful-ant.com/optimized/320/alphabio_modern_abstract_textures_patterns_world_class_art_pain_9792c506-2222-4be0-83b3-9e071462233b.png.1.jpg"
+                    alt="Decorative pattern"
+                    className="w-auto h-6"
+                  />
                 </div>
               </div>
             </div>

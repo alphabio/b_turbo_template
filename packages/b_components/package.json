@@ -23,5 +23,6 @@
   },
   "devDependencies": {
     "@b/typescript-config": "workspace:*"
-  }
+  },
+  "optionalDependencies": {}
 }

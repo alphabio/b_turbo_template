@@ -1,7 +1,5 @@
 // b_path:: apps/basic/src/app/routes/(protected)/admin/index.tsx
-import {
-  Button,
-} from "@b/ui";
+import { Button } from "@b/ui";
 import { useCurrentUser } from "@/hooks";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
